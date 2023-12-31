@@ -1,0 +1,92 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+
+    <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+
+	<!-- fonts -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+
+    <!-- styles -->
+    <style>
+        input
+        {
+            border: none;
+            border-bottom: 0.1px solid black;
+            width: 400px;
+            height: 50px;
+        }
+        body{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <br><br><br>
+        <h1 style="color:#339ECA">Register</h1>
+        <div style = 'background-color: white; height:600px; margin-top:60px; width: 500px;'>
+            <form action="{% url 'register' %}" method="post">
+
+                    {% csrf_token %}
+                    {{msg}}
+
+                    <div>
+                        <input type="text" placeholder="full name" name="full_name" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="email" placeholder="E-mail" name="email" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="text" placeholder="Phone No." name="mobile" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="text" placeholder="Address" name="address" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="password" placeholder="Password" name="password" id="password1" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="password" placeholder="Confirm Password" name="cpassword" id="password2" required="">
+                    </div>
+
+                    <br>
+                    <br>
+                    <div>
+                        <button style="color:white; background-color: #FF5722; border:none; height:50px;font-size:25px; width:150px; border-radius:26px" type = 'submit'>Register</button>
+                    </div>
+                    
+
+                </form>
+                 
+                <br> 
+
+                <p>
+                    <a href="#">By clicking register, I agree to your terms</a>
+                </p>
+        </div>
+    </center>
+  
+</body>
+</html>

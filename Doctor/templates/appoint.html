@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>appointment</title>
+
+    <link href="//fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+  
+</head>
+<body>
+    <!-- /w3l-content-3-->
+  <section class="w3l-content-3 py-5">
+    <!-- /content-6-section -->
+    <div class="content-3-info py-3">
+      <div class="container py-lg-4">
+        <div class="row appointment-formw3">
+          <div class="col-lg-6 welcome-left">
+            <h6 class="title-subhny mb-2">Free Appointment</h6>
+            <h3 class="title-w3l two mb-3">Make an Appointment</h3>
+            <p class="mb-3">
+              We believe in providing the best possible care to all our existing patients and welcomenew patients to
+              sample.</p>
+            <p>Lorem ipsum dolor sit amet,Ea consequuntur illum facere aperiam sequi optio adipisicing.</p>
+            <a class="btn btn-style btn-outline-light mt-sm-5 mt-4 mr-2" href="#">
+              Contact Us</a>
+          </div>
+          <div class="col-lg-6 free-appointment pl-lg-5 mt-5">
+            <div class="appointment-form">
+              <form action="#" method="post">
+                <div class="fields-grid">
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <input type="text" name="fullname" placeholder="Full Name" required="">
+                    </div>
+                  </div>
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <input type="email" name="email" placeholder="Enter Email" required="">
+                    </div>
+                  </div>
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <input type="text" name="phone" placeholder="Enter Number" required="">
+                    </div>
+                  </div>
+
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <input type="date" name="date" placeholder="Set a Date" required="">
+                    </div>
+                  </div>
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <select id="department" required="Specialization">
+                        <option value="">Specialization*</option>
+                        <option value="">Cardiology</option>
+                        <option value="">Heart Surgery</option>
+                        <option value="">Skin Care</option>
+                        <option value="">Body Check-up</option>
+                        <option value="">Numerology</option>
+                        <option value="">Diagnosis</option>
+                        <option value="">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="styled-input">
+
+                    <div class="appointment-form-field">
+
+                      <select id="doctor" required="Select Doctor">
+                        <option value="">Select Doctor</option>
+                        <option value="">Doctor 1</option>
+                        <option value="">Doctor 2</option>
+                        <option value="">Doctor 3</option>
+                        <option value="">Doctor 4</option>
+                        <option value="">Doctor 5</option>
+                        <option value="">Doctor 6</option>
+                        <option value="">Doctor 7</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="appointment-btn text-lg-right">
+                  <button type="submit" class="btn btn-style btn-primary mt-4">Book Appointment</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- //w3l-content-3-->
+</body>
+</html>
