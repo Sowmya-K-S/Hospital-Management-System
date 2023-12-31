@@ -34,13 +34,21 @@
 
         <h1 style="color:#339ECA">Login</h1>
 
+        <br><br>
+        <span>
+            Don't have an account ? <a href="{% url 'register' %}" style="color:#339ECA">Register</a>
+        </span>
+
         <div style = 'background-color: white; height:600px; margin-top:60px; width: 500px;'>
+
 
             <form action="{% url 'register' %}" method="post">
 
                     {% csrf_token %}
                     {{msg}}
 
+                    <br>
+                    <br>
 
                     <div>
                         <input type="email" placeholder="E-mail" name="email" required="">
@@ -53,13 +61,23 @@
                     </div>
 
                     <br>
+
+                    <span>
+                        <a href="#">forgot password ?</a>
+                    </span>
+
                     <br>
+                    <br>
+                
                     <div>
                         <button style="color:white; background-color: #FF5722; border:none; height:50px;font-size:25px; width:130px; border-radius:26px" type = 'submit'>Submit</button>
                     </div>
             </form>
                  
-        </div>
+            <br> 
+
+           
+         </div>
     </center>
   
 </body>
