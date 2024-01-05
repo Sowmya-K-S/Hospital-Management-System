@@ -35,31 +35,10 @@
             <div class="appointment-form">
               <form action="#" method="post">
                 <div class="fields-grid">
-                  <div class="styled-input">
-
-                    <div class="appointment-form-field">
-
-                      <input type="text" name="fullname" placeholder="Full Name" required="">
-                    </div>
-                  </div>
-                  <div class="styled-input">
-
-                    <div class="appointment-form-field">
-
-                      <input type="email" name="email" placeholder="Enter Email" required="">
-                    </div>
-                  </div>
-                  <div class="styled-input">
-
-                    <div class="appointment-form-field">
-
-                      <input type="text" name="phone" placeholder="Enter Number" required="">
-                    </div>
-                  </div>
 
                   <div class="styled-input">
 
-                    <div class="appointment-form-field">
+                    <div>
 
                       <input type="date" name="date" placeholder="Set a Date" required="">
                     </div>
@@ -68,16 +47,18 @@
 
                     <div class="appointment-form-field">
 
-                      <select id="department" required="Specialization">
-                        <option value="">Specialization*</option>
-                        <option value="">Cardiology</option>
-                        <option value="">Heart Surgery</option>
-                        <option value="">Skin Care</option>
-                        <option value="">Body Check-up</option>
-                        <option value="">Numerology</option>
-                        <option value="">Diagnosis</option>
-                        <option value="">Others</option>
+                      <select id="department"name="special" required="Specialization">
+                        <option value="" onchange="showDoctor({{i.id}})">Specialization*</option>
+                        {% for i in special_data %}
+                        <option value="">{{i.dept_name}}</option>
+                        {% endfor %}
+
                       </select>
+                     <script>
+                      function showDoctor(did){
+                        "show_doctor/did"
+                      }
+                     </script>
                     </div>
                   </div>
                   <div class="styled-input">
@@ -86,19 +67,15 @@
 
                       <select id="doctor" required="Select Doctor">
                         <option value="">Select Doctor</option>
-                        <option value="">Doctor 1</option>
-                        <option value="">Doctor 2</option>
-                        <option value="">Doctor 3</option>
-                        <option value="">Doctor 4</option>
-                        <option value="">Doctor 5</option>
-                        <option value="">Doctor 6</option>
-                        <option value="">Doctor 7</option>
+                        {% for i in doctor_list %}
+                        <option value=""></option>
+                        {% endfor %}
                       </select>
                     </div>
                   </div>
 
                 </div>
-                <div class="appointment-btn text-lg-right">
+                <div>
                   <button type="submit" class="btn btn-style btn-primary mt-4">Book Appointment</button>
                 </div>
               </form>

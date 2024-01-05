@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Patient.views import *
+from Doctor.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,15 @@ urlpatterns = [
     path('contact/',contact, name = "contact"),
     path('register/',register, name = "register"),
     path('login/',login, name = "login"),
-     path('appoint/',appoint, name = "appoint")
+    path('appoint/',appoint, name = "appoint"),
+    path('otp/', otp, name = "otp"),
+    path('logout/', logout, name = "logout"),
+    path('doctor/',doctor,name="doctor"),
+    path('doctor_reg', doctor_reg, name="doctor_reg"),
+    path('doctor_login/', doctor_login, name="doctor_login"),
+    path('doctor_otp/',doctor_otp, name="doctor_otp"),
+    path('dashboard/',dashboard, name = "dashboard"),
+    path('doctor_logout/', doctor_logout, name = "doctor_logout"),
+
 
 ]

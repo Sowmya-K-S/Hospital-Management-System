@@ -1,3 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
+# from Doctor.models import  Doctor_table,DepartmentTable
+# # Register your models here.
+# admin.site.register(Doctor_table)
+# admin.site.register(DepartmentTable)
