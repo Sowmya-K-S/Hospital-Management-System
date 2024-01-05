@@ -36,17 +36,41 @@
                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                   </li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                  </li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                  </li>
+                 {% if user_data %}
+                
 
-                  <li class="nav-item">
-                    <button style = 'background-color:#339ECA; border: none; border-radius: 30px;width:235px; text-align: center;padding-top: 0px;'><a class="nav-link" href="{% url 'appoint' %}">Make an Appointment</a></button>
-                  </li>
+                 <li class="nav-item">
+                  <button style = 'background-color:#339ECA; border: none; border-radius: 30px;width:200px; text-align: center;padding-top: 0px; font-size: 10px;'><a class="nav-link" href="{% url 'appoint' %}">Make an Appointment</a></button>
+                </li>
+                <div>
+                <li class="nav-item">
+                  
+                  <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"> &nbsp;</i>Logout</a>
+                </li>
+
+                
+                  <li>
+                    <a href="">
+                      <img src="{{user_data.profile_pic.url}}" alt="profile pic" style="width: 30px; height: 30px; border-radius: 50%;">
+                      <span aria-hidden="true"></span> {{user_data.full_name}}
+                    </a>
+                </li>
+                </div>
+
+            {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <button style = 'background-color:#339ECA; border: none; border-radius: 30px;width:150px; text-align: center;padding-top: 0px;'><a class="nav-link" href="{% url 'doctor' %}">I am a doctor</a></button>
+                </li>
+            {% endif %}
+
                  </ul>
       
               </div>
