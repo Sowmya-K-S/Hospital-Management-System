@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
 from Patient.views import *
 from Doctor.views import *
 
 urlpatterns = [
+
+    # urls for patient app
     path('admin/', admin.site.urls),
     path('', home, name="home"),
     path('about/',about, name = "about"),
@@ -30,7 +33,12 @@ urlpatterns = [
     path('appoint/',appoint, name = "appoint"),
     path('otp/', otp, name = "otp"),
     path('logout/', logout, name = "logout"),
+
+    # urls for doctor app
     path('doctor/',doctor,name="doctor"),
+    path('doctor_about/',doctor_about, name = "doctor_about"),
+    path('doctor_department/',doctor_department, name = "doctor_department"),
+    path('doctor_contact/',doctor_contact, name = "doctor_contact"),
     path('doctor_reg', doctor_reg, name="doctor_reg"),
     path('doctor_login/', doctor_login, name="doctor_login"),
     path('doctor_otp/',doctor_otp, name="doctor_otp"),
@@ -38,4 +46,4 @@ urlpatterns = [
     path('doctor_logout/', doctor_logout, name = "doctor_logout"),
 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,11 +13,33 @@ from django.core.mail import send_mail
 #importing DB tables from models.py
 from Doctor.models import Doctor_table,DepartmentTable
 
-from Patient.views import doctor
 
 
 
 # Create your views here.
+
+def doctor_about(request):
+    doctor_list = Doctor_table.objects.all()
+    if 'doctor_email' in request.session:
+        doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'])
+        return render(request, 'doctor_about.html',{'doctor_data':doctor_data, 'doctor_list':doctor_list})
+    else:
+        return render(request, 'doctor_about.html',{'doctor_list':doctor_list})
+
+def doctor_department(request):
+    dept_data = DepartmentTable.objects.all()
+    if 'doctor_email' in request.session:
+        doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'])
+        return render(request, 'doctor_services.html',{'doctor_data':doctor_data, 'dept_data':dept_data})
+    else:
+        return render(request, 'doctor_services.html',{'dept_data':dept_data})
+
+def doctor_contact(request):
+    if 'doctor_email' in request.session:
+        doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'])
+        return render(request, 'doctor_contact.html',{'doctor_data':doctor_data})
+    else:
+        return render(request, 'doctor_contact.html')
 
 
 
@@ -86,10 +108,11 @@ def doctor_login(request):
     else:
         try:
             # finding the record of person trying to login in database
-            session_user = Doctor_table.objects.get(email = request.POST['email'])
-            if request.POST['password'] == session_user.password:
-                request.session['doctor_email'] = session_user.email
-                return redirect('doctor')
+            session_doctor = Doctor_table.objects.get(email = request.POST['email'])
+            if request.POST['password'] == session_doctor.password:
+                request.session['doctor_email'] = session_doctor.email
+                doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'] )
+                return render(request, 'doctor_index.html',{'doctor_data': doctor_data})
             else:
                 return render(request, 'doctor_login.html', {'msg':'invalid password'})
         except:

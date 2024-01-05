@@ -5,7 +5,7 @@
         <header id="site-header" class="header-w3l fixed-top" style="position: static; background-color: transparent;">
           <div class="container" style="background-color: transparent;">
             <nav class="navbar navbar-expand-lg stroke">
-              <a class="navbar-brand" href="{% url 'home' %}" style="margin-right: 150px;">
+              <a class="navbar-brand" href="{% url 'doctor' %}" style="margin-right: 150px;">
                Med<span class="sub-logo">i</span>ck</span> <span>Doctor</span>
               </a>
               <!-- if logo is image enable this   
@@ -23,17 +23,17 @@
               <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mx-lg-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'doctor' %}">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'doctor_about' %}">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'department' %}">Departments</a>
+                    <a class="nav-link" href="{% url 'doctor_department' %}">Departments</a>
                   </li>
                   
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    <a class="nav-link" href="{% url 'doctor_contact' %}">Contact</a>
                   </li>
 
 
@@ -59,11 +59,11 @@
                 
             {% else %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'doctor_reg' %}">Register</a>
+                  <a class="nav-link" href="{% url 'doctor_reg' %}"> <i class="fa-solid fa-user-plus"> &nbsp; </i> Register</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'doctor_login' %}">Login</a>
+                  <a class="nav-link" href="{% url 'doctor_login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</a>
                 </li>
 
                 {% endif %}
