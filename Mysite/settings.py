@@ -137,3 +137,12 @@ EMAIL_HOST_PASSWORD = 'mkkkhxvuxzroiypc'
 
 MEDIA_URL = '/photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
+
+
+# for razor pay
+f = open('rzp.csv')
+str1 = f.read()
+str2 = str1.split('\n')[1]
+k_and_s = str2.split(',')
+RAZOR_KEY_ID = k_and_s[0]
+RAZOR_KEY_SECRET = k_and_s[1]

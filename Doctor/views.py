@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 
 #importing DB tables from models.py
 from Doctor.models import Doctor_table,DepartmentTable
+from Patient.models import Appoint
 
 
 
@@ -124,6 +125,11 @@ def doctor_logout(request):
     return redirect('doctor')
 
 def dashboard(request):
-    return render(request,'d_index.html')
+    doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'] )
+    return render(request,'d_index.html',{'doctor_data':doctor_data})
 
+def view_appoint(request):
+    doctor_data = Doctor_table.objects.get(email = request.session['doctor_email'] )
+    appointment_list = Appoint.objects.filter(doctor_name= doctor_data.full_name)
+    return render(request,'view_appoint.html',{'doctor_data':doctor_data, 'appointment_list':appointment_list})
 

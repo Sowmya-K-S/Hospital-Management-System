@@ -33,6 +33,10 @@ urlpatterns = [
     path('appoint/',appoint, name = "appoint"),
     path('otp/', otp, name = "otp"),
     path('logout/', logout, name = "logout"),
+    path('get_doctors/', get_doctors, name='get_doctors'),
+    path('paymenthandler/', paymenthandler, name='paymenthandler'),
+    # path("callback/", callback, name="callback"),
+    
 
     # urls for doctor app
     path('doctor/',doctor,name="doctor"),
@@ -44,6 +48,8 @@ urlpatterns = [
     path('doctor_otp/',doctor_otp, name="doctor_otp"),
     path('dashboard/',dashboard, name = "dashboard"),
     path('doctor_logout/', doctor_logout, name = "doctor_logout"),
+    path('view_appoint/',view_appoint,name = "view_appoint"),
+  
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
