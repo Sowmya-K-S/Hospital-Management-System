@@ -17,8 +17,8 @@ from Patient.models import Patient,Appoint
 from Doctor.models import Doctor_table,DepartmentTable
 
 import razorpay
-
 from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
@@ -138,10 +138,7 @@ def login(request):
 def appoint(request):
     special_data = DepartmentTable.objects.all()
    
-    if request.method == 'GET':
-        return render(request,'appoint.html',{'special_data':special_data})
-    
-    else:
+    if request.method == 'POST':
             one_day_appointments  = Appoint.objects.filter(a_date = request.POST['a_date'],specialisation = request.POST['special'], doctor_name = request.POST['doctor_name'] )
             if one_day_appointments:
                 return render(request, 'appoint.html',{'msg':'Doctor is not available on this date', 'special_data':special_data})
@@ -150,35 +147,45 @@ def appoint(request):
                 if appoint_date  >= str(timezone.now().date()) :
                     global Appoint_object
                     Appoint_object = {'a_date' : request.POST['a_date'],'specialisation' : request.POST['special'], 'doctor_name' : request.POST['doctor_name']}
-                    amount = 500000
-                    currency = 'INR'
-                
-                    # Create a Razorpay Order
-                    razorpay_order = razorpay_client.order.create(dict(amount=amount,
-                                                                    currency=currency,
-                                                                    payment_capture='0'))
-                
-                    # order id of newly created order.
-                    razorpay_order_id = razorpay_order['id']
-                    callback_url = 'paymenthandler/'
-                
-                    # we need to pass these details to frontend.
-                    context = {}
-                    context['razorpay_order_id'] = razorpay_order_id
-                    context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
-                    context['razorpay_amount'] = amount
-                    context['currency'] = currency
-                    context['callback_url'] = callback_url
-                
-                    return render(request, 'appoint.html',{'appoint_data': Appoint_object})
-                                    
-                else:
-                    return render(request, 'appoint.html',{'msg':'Please enter the valid date', 'special_data':special_data,'appoint_data': Appoint_object})
+                return render(request,'appoint.html',{'special_data':special_data, 'msg':"Doctor is available, You can book the appointment"})
 
+
+    else:
+         return render(request,'appoint.html',{'special_data':special_data})
+    
+
+def pay(request):
+
+    try:
+        context = {
+        'appoint_data':Appoint_object,
+        'total_cost': 500
+        }
+
+        # payment portion
+        global amount
+        amount = 50000 #paise version
+        currency = 'INR'
+        razorpay_order = razorpay_client.order.create(dict(amount=amount,
+                                                       currency=currency,
+                                                       payment_capture='1'))
+        razorpay_order_id = razorpay_order['id']
+        callback_url = 'paymenthandler/'
+
+        #updating context dictionary
+        context['razorpay_order_id'] = razorpay_order_id
+        context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+        context['razorpay_amount'] = amount
+        context['currency'] = currency
+        context['callback_url'] = callback_url
+
+        return render(request, 'appoint.html', context=context)
+    except:
+        return redirect('login')
 
 @csrf_exempt
 def paymenthandler(request):
- 
+
     # only accept POST request.
     if request.method == "POST":
         try:
@@ -192,34 +199,41 @@ def paymenthandler(request):
                 'razorpay_payment_id': payment_id,
                 'razorpay_signature': signature
             }
- 
+
             # verify the payment signature.
             result = razorpay_client.utility.verify_payment_signature(
                 params_dict)
             if result is not None:
-                amount = 20000  # Rs. 200
+                f_amount = amount/100  # Rs version 
                 try:
- 
-                    # capture the payemt
-                    razorpay_client.payment.capture(payment_id, amount)
- 
+
+                    # capture the payment
+                    razorpay_client.payment.capture(payment_id, f_amount)
+
+        
+
+                        #creating order for that item
+                    Appoint.objects.create(a_date =Appoint_object['a_date'], special = Appoint_object['specialisation'], doctor_name = Appoint_object['specialisation']
+                           
+                        )
+                        
                     # render success page on successful caputre of payment
                     return render(request, 'paymentsuccess.html')
                 except:
- 
+
                     # if there is an error while capturing payment.
                     return render(request, 'paymentfail.html')
             else:
- 
+
                 # if signature verification fails.
                 return render(request, 'paymentfail.html')
         except:
- 
             # if we don't find the required parameters in POST data
             return HttpResponseBadRequest()
     else:
        # if other than POST request is made.
         return HttpResponseBadRequest()
+
 
 
 

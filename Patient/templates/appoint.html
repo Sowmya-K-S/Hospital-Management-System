@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
   
 </head>
+
+
 <body>
 
     <!-- /w3l-content-3-->
@@ -58,13 +60,20 @@
                   <option value="">Select Doctor</option>
               </select>
 
-              <div>
-                <button type="submit" class="btn btn-style btn-primary mt-4", id="pay_btn">Pay & Book</button>
-              </div>
+              <!-- button to check whether the appointment is available or not -->
 
-            </div>
-               
+                <div>
+                  <a> <button type="submit" class="btn btn-style btn-primary mt-4">check</button></a>
+                </div>
+            </div>     
           </form>
+
+        
+          <!-- button to start payment -->
+          <div>
+            <a href="{% url 'pay' %}"> <button  type="button" class="btn btn-style btn-primary mt-4", id="rzp-button1">Pay & Book</button></a>
+           
+          </div>
 
 
             </div>
@@ -75,9 +84,39 @@
   </section>
   <!-- //w3l-content-3-->
 
-   
 
-  <!-- Add this script in your HTML template -->
+  <!-- for razor pay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+  const options = {
+    key: "{{ razorpay_merchant_key }}",
+    amount: "{{ razorpay_amount }}",
+    currency: "{{ currency }}",
+    name: "Ecommerce",
+    order_id: "{{ razorpay_order_id }}",
+    handler: function (response) {
+      // Redirect to the specified callback URL or any other logic
+      window.location.href = "{{ callback_url }}?payment_id=" + response.razorpay_payment_id;
+    },
+    modal: {
+      ondismiss: function () {
+        // Handle modal close event
+        console.log("Payment modal closed");
+      },
+    },
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById("rzp-button1").onclick = function (e) {
+    rzp1.open();
+    e.preventDefault();
+  };
+</script>
+
+
+
 <script>
   function showDoctor(specialization) {
       var doctorDropdown = document.getElementById("doctor");
@@ -103,38 +142,7 @@
   }
 </script>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-{% if appoint_data %}
-<script>
-  var options = {
-     
-    // Enter the Key ID generated from the Dashboard
-    key: "{{ razorpay_merchant_key }}", 
-     
-    // Amount is in currency subunits.
-    // Default currency is INR. Hence, 
-    // 50000 refers to 50000 paise
-    amount: "{{ razorpay_amount }}", 
-    currency: "{{ currency }}",
-     
-    // Your/store name.
-    name: "Dj Razorpay", 
-     
-    // Pass the `id` obtained in the response of Step 1
-    order_id: "{{ razorpay_order_id }}", 
-    callback_url: "{{ callback_url }}",
-  };
-   
-  // initialise razorpay with the options.
-  var rzp1 = new Razorpay(options);
-   
-  // add event listener to the payment button.
-  document.getElementById("pay-btn").onclick = function (e) {
-    rzp1.open();
-    e.preventDefault();
-  };
-</script>
-{% endif %}
 
+  
 </body>
 </html>

@@ -34,8 +34,9 @@ urlpatterns = [
     path('otp/', otp, name = "otp"),
     path('logout/', logout, name = "logout"),
     path('get_doctors/', get_doctors, name='get_doctors'),
-    path('paymenthandler/', paymenthandler, name='paymenthandler'),
-    # path("callback/", callback, name="callback"),
+    path('pay/', pay, name = "pay"),
+    path('pay/paymenthandler/', paymenthandler, name='paymenthandler'),
+
     
 
     # urls for doctor app
