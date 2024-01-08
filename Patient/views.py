@@ -23,9 +23,7 @@ from Doctor.models import Doctor_table,DepartmentTable
 
 # Create your views here.
 
-# razor pay client
-razorpay_client = razorpay.Client(
-    auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+
 
 
 from django.utils import timezone 
@@ -139,6 +137,8 @@ def login(request):
         except:
             return render(request, 'login.html',{'msg': 'This email is not Registered !!'})
                 
+ # razor pay client
+razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 
 def appoint(request):
     global special_data
@@ -151,26 +151,21 @@ def appoint(request):
             else:
                 appoint_date = request.POST['a_date']
                 if appoint_date  >= str(timezone.now().date()) :
-                    global Appoint_object
-                    Appoint_object = {'a_date' : request.POST['a_date'],'specialisation' : request.POST['special'], 'doctor_name' : request.POST['doctor_name']}
-                    context = {
-                                'appoint_data':Appoint_object,
-                                'appoint_price':500
-                              }
+                    Appoint.objects.create(a_date = request.POST['a_date'], specialisation = request.POST['special'], doctor_name = request.POST['doctor_name'])
+                
                     global amount
-                    amount = 500 * 100 #paise version
+                    amount = 50000 #paise version
                     currency = 'INR'
-                    razorpay_order = razorpay_client.order.create(dict(amount=amount, currency=currency, payment_capture='0'))
-
+                    razorpay_order = razorpay_client.order.create(dict(amount=amount, currency=currency, payment_capture=1))
                     razorpay_order_id = razorpay_order['id']
-                    callback_url = 'paymenthandler/'
 
-                    # context dictionary
-                    context['razorpay_order_id'] = razorpay_order_id
-                    context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
-                    context['razorpay_amount'] = amount
-                    context['currency'] = currency
-                    context['callback_url'] = callback_url
+                    context={ 
+                        'price':500,
+                        'api_key':settings.RAZOR_KEY_ID,
+                        'order_id':razorpay_order_id,
+                    }
+                    
+
                     return render(request, 'payment.html', context=context)
                 else:
                     return render(request, 'appoint.html',{'msg':'Enter a valid date', 'special_data':special_data})
@@ -201,56 +196,5 @@ def get_doctors(request):
     else:
         return JsonResponse({'error': 'Specialization not provided'})
        
-@csrf_exempt
-def paymenthandler(request):
 
-    # only accept POST request.
-    if request.method == "POST":
-        try:
-           
-            # get the required parameters from post request.
-            payment_id = request.POST.get('razorpay_payment_id', '')
-            razorpay_order_id = request.POST.get('razorpay_order_id', '')
-            signature = request.POST.get('razorpay_signature', '')
-            params_dict = {
-                'razorpay_order_id': razorpay_order_id,
-                'razorpay_payment_id': payment_id,
-                'razorpay_signature': signature
-            }
-
-            # verify the payment signature.
-            result = razorpay_client.utility.verify_payment_signature(
-                params_dict)
-            if result is not None:
-                f_amount = amount 
-
-                try:
-                    # capture the payment
-                    razorpay_client.payment.capture(payment_id, f_amount)
-
-                    #creating appointment for that item
-                    Appoint.objects.create(a_date = Appoint_object['a_date'], special = Appoint_object['specialisation'], doctor_name = Appoint_object['doctor_name'])
-        
-                    # render success page on successful caputre of payment
-                    return render(request, 'paymentsuccess.html')
-
-                except:
-
-                    # if there is an error while capturing payment.
-                    return render(request, 'paymentfail.html')
-            else:
-
-                # if signature verification fails.
-                return render(request, 'paymentfail.html')
-
-        except:
-            # if we don't find the required parameters in POST data
-            return HttpResponseBadRequest()
-    else:
-       # if other than POST request is made.
-        return HttpResponseBadRequest()
-    
-
-
-
-
+                  

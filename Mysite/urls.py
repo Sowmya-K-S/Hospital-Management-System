@@ -34,11 +34,8 @@ urlpatterns = [
     path('otp/', otp, name = "otp"),
     path('logout/', logout, name = "logout"),
     path('get_doctors/', get_doctors, name='get_doctors'),
-    path('appoint/paymenthandler/', paymenthandler, name='paymenthandler'),
-
 
     
-
     # urls for doctor app
     path('doctor/',doctor,name="doctor"),
     path('doctor_about/',doctor_about, name = "doctor_about"),
