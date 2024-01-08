@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>appointment</title>
+
+    <link href="//fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+  
+</head>
+
+
+<body>
+
+    <!-- /w3l-content-3-->
+  <section class="w3l-content-3 py-5">
+    <!-- /content-6-section -->
+    <div class="content-3-info py-3">
+      <div class="container py-lg-4">
+        <div class="row appointment-formw3">
+          <div class="col-lg-6 welcome-left">
+            <h3 class="title-w3l two mb-3">Make an Appointment</h3>
+            <p class="mb-3">
+              We believe in providing the best possible care to all our patients </p>
+          </div>
+
+          <div class="col-lg-6 free-appointment pl-lg-5 mt-5">
+            <div class="appointment-form">
+
+              <form action="{% url 'appoint' %}" method="post">
+
+                {% csrf_token %}
+                {{msg}}
+
+                <div class="fields-grid">
+
+                  <div class="styled-input">
+                    <div>
+                      <input type="date" name="a_date" placeholder="Set a Date" required="">
+                    </div>
+                  </div>
+
+
+                  <!-- # loading options for specialization -->
+                  <select id="department" name="special" required="Specialization" onchange="showDoctor(this)">
+                    <option value="">Specialization*</option>
+                    {% for i in special_data %}
+                        <option value="{{ i.dept_name }}">{{ i.dept_name }}</option>
+                    {% endfor %}
+                  </select>
+                
+                
+                <!-- #loading doctor list based on the specialization selected -->
+
+                <select id="doctor" name="doctor_name" required="Select Doctor">
+                  <option value="">Select Doctor</option>
+              </select>
+
+
+              <!-- button to check whether the appointment is available or not -->
+                <div>
+                  <a>
+                  <button type="submit" class="btn btn-style btn-primary mt-4" id="pay-btn">Proceed</button>
+                </a>
+                
+            </form>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- //w3l-content-3-->
+
+
+<!-- for dependent dropdown -->
+
+<script>
+  function showDoctor(specialization) {
+      var doctorDropdown = document.getElementById("doctor");
+      var specializationValue = specialization.value;
+
+      // Clear the existing options
+      doctorDropdown.innerHTML = '<option value="">Select Doctor</option>';
+
+      // Fetch doctors based on specialization using AJAX
+      if (specializationValue) {
+          fetch(`/get_doctors/?specialization=${specializationValue}`)
+              .then(response => response.json())
+              .then(data => {
+                  data.doctors.forEach(doctor => {
+                      var option = document.createElement('option');
+                      option.value = doctor.name;
+                      option.text = doctor.name;
+                      doctorDropdown.add(option);
+                  });
+              })
+              .catch(error => console.error('Error:', error));
+      }
+  }
+</script>
+  
+</body>
+</html>

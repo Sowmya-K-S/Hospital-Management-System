@@ -1,0 +1,97 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+
+
+	<!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- styles -->
+    <style>
+        input
+        {
+            border: none;
+            border-bottom: 3px solid #00000072;
+            width: 400px;
+            height: 50px;
+            font-size: 12pt;
+            font-family: 'Poppins', sans-serif !important;
+            transition: border .5s linear;
+            
+        }
+        body{
+            background-color: white;
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        div >input:focus
+        {
+            border-bottom: 3px solid black;
+            outline: 0px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+
+        <br><br><br>
+
+        <h1 style="color:#339ECA">Doctor Login</h1>
+
+        <br><br>
+        <span>
+            Don't have an account ? <a href="{% url 'doctor_reg' %}" style="color:#339ECA">Register</a>
+        </span>
+
+        <div style = 'background-color: white; height:600px; margin-top:60px; width: 500px;'>
+
+
+            <form action="{% url 'doctor_login' %}" method="post">
+
+                    {% csrf_token %}
+                    {{msg}}
+
+                    <br>
+                    <br>
+
+                    <div>
+                        <input type="email" placeholder="E-mail" name="email" required="">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <input type="password" placeholder="Password" name="password" id="password1" required="">
+                    </div>
+
+                    <br>
+
+                    <span>
+                        <a href="#">forgot password ?</a>
+                    </span>
+
+                    <br>
+                    <br>
+                
+                    <div>
+                            <a>
+                        <button style="color:white; background-color: #FF5722; border:none; height:50px;font-size:25px; width:130px; border-radius:26px" type = 'submit'>Submit</button></a>
+                    </div>
+            </form>
+                 
+            <br> 
+
+           
+         </div>
+    </center>
+  
+</body>
+</html>
