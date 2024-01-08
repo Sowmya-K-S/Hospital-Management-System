@@ -6,21 +6,6 @@
     <title>payment</title>
 </head>
 <body>
-    <h2>Payment Details</h2>
-    <p>Amount: {{ order.amount / 100 }} {{ order.currency }}</p>
-    <form action="/payment/success/" method="POST">
-        <script src="https://checkout.razorpay.com/v1/checkout.js"
-            data-key="{{ order.key }}"
-            data-amount="{{ order.amount }}"
-            data-currency="{{ order.currency }}"
-            data-name="Your App"
-            data-description="Appointment Payment"
-            data-image="{% static 'path/to/your/logo.png' %}"
-            data-order_id="{{ order.id }}"
-            data-buttontext="Pay Now"
-            data-theme.color="#F37254">
-        </script>
-    </form>
+    <p>Payment Failed! </p>
 </body>
 </html>
- 

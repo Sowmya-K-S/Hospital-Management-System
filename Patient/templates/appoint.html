@@ -32,6 +32,7 @@
 
           <div class="col-lg-6 free-appointment pl-lg-5 mt-5">
             <div class="appointment-form">
+
               <form action="{% url 'appoint' %}" method="post">
 
                 {% csrf_token %}
@@ -45,13 +46,14 @@
                     </div>
                   </div>
 
+
                   <!-- # loading options for specialization -->
                   <select id="department" name="special" required="Specialization" onchange="showDoctor(this)">
                     <option value="">Specialization*</option>
                     {% for i in special_data %}
                         <option value="{{ i.dept_name }}">{{ i.dept_name }}</option>
                     {% endfor %}
-                </select>
+                  </select>
                 
                 
                 <!-- #loading doctor list based on the specialization selected -->
@@ -60,23 +62,15 @@
                   <option value="">Select Doctor</option>
               </select>
 
+
               <!-- button to check whether the appointment is available or not -->
-
                 <div>
-                  <a> <button type="submit" class="btn btn-style btn-primary mt-4">check</button></a>
-                </div>
-            </div>     
-          </form>
-
-        
-          <!-- button to start payment -->
-          <div>
-            <a href="{% url 'pay' %}"> <button  type="button" class="btn btn-style btn-primary mt-4", id="rzp-button1">Pay & Book</button></a>
-           
-          </div>
-
-
-            </div>
+                  <a>
+                  <button type="submit" class="btn btn-style btn-primary mt-4" id="pay-btn">Proceed</button>
+                </a>
+                
+            </form>
+           </div>
           </div>
         </div>
       </div>
@@ -85,37 +79,7 @@
   <!-- //w3l-content-3-->
 
 
-  <!-- for razor pay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
-<script>
-  const options = {
-    key: "{{ razorpay_merchant_key }}",
-    amount: "{{ razorpay_amount }}",
-    currency: "{{ currency }}",
-    name: "Ecommerce",
-    order_id: "{{ razorpay_order_id }}",
-    handler: function (response) {
-      // Redirect to the specified callback URL or any other logic
-      window.location.href = "{{ callback_url }}?payment_id=" + response.razorpay_payment_id;
-    },
-    modal: {
-      ondismiss: function () {
-        // Handle modal close event
-        console.log("Payment modal closed");
-      },
-    },
-  };
-  var rzp1 = new Razorpay(options);
-  document.getElementById("rzp-button1").onclick = function (e) {
-    rzp1.open();
-    e.preventDefault();
-  };
-</script>
-
-
+<!-- for dependent dropdown -->
 
 <script>
   function showDoctor(specialization) {
@@ -132,7 +96,7 @@
               .then(data => {
                   data.doctors.forEach(doctor => {
                       var option = document.createElement('option');
-                      option.value = doctor.id;
+                      option.value = doctor.name;
                       option.text = doctor.name;
                       doctorDropdown.add(option);
                   });
@@ -141,8 +105,6 @@
       }
   }
 </script>
-
-
   
 </body>
 </html>

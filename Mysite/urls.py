@@ -34,8 +34,8 @@ urlpatterns = [
     path('otp/', otp, name = "otp"),
     path('logout/', logout, name = "logout"),
     path('get_doctors/', get_doctors, name='get_doctors'),
-    path('pay/', pay, name = "pay"),
-    path('pay/paymenthandler/', paymenthandler, name='paymenthandler'),
+    path('appoint/paymenthandler/', paymenthandler, name='paymenthandler'),
+
 
     
 
@@ -44,7 +44,7 @@ urlpatterns = [
     path('doctor_about/',doctor_about, name = "doctor_about"),
     path('doctor_department/',doctor_department, name = "doctor_department"),
     path('doctor_contact/',doctor_contact, name = "doctor_contact"),
-    path('doctor_reg', doctor_reg, name="doctor_reg"),
+    path('doctor_reg/', doctor_reg, name="doctor_reg"),
     path('doctor_login/', doctor_login, name="doctor_login"),
     path('doctor_otp/',doctor_otp, name="doctor_otp"),
     path('dashboard/',dashboard, name = "dashboard"),
@@ -54,3 +54,7 @@ urlpatterns = [
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+

@@ -140,9 +140,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 
 
 # for razor pay
-f = open('rzp.csv')
-str1 = f.read()
-str2 = str1.split('\n')[1]
-k_and_s = str2.split(',')
-RAZOR_KEY_ID = k_and_s[0]
-RAZOR_KEY_SECRET = k_and_s[1]
+
+RAZOR_KEY_ID = 'rzp_test_3jexlue5S8raet'
+RAZOR_KEY_SECRET = 'FTir9D0kHxb4KzdMQuR6TQGm'
