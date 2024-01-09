@@ -11,25 +11,25 @@ Sowmya K S
 Mahadevu M P
 
 Technologies and Tools used: 
-Architecture: Object Relational Mapping
-Front-end : HTML, CSS, JS
-Back-end : Python
-Database : SQLite
-Framework : Django
-Code Editor : Visual Studio Code
-Version Control : Git & Github
+- Architecture: Object Relational Mapping
+- Front-end : HTML, CSS, JS
+- Back-end : Python
+- Database : SQLite
+- Framework : Django
+- Code Editor : Visual Studio Code
+- Version Control : Git & Github
 
 Requirements : 
-asgiref==3.7.2
-certifi==2023.11.17
-charset-normalizer==3.3.2
-Django==5.0
-idna==3.6
-razorpay==1.4.1
-requests==2.31.0
-sqlparse==0.4.4
-tzdata==2023.4
-urllib3==2.1.0
+- asgiref==3.7.2
+- certifi==2023.11.17
+- charset-normalizer==3.3.2
+- Django==5.0
+- idna==3.6
+- razorpay==1.4.1
+- requests==2.31.0
+- sqlparse==0.4.4
+- tzdata==2023.4
+- urllib3==2.1.0
 
 Brief of all the functionalities implemented:
 Patient App:
