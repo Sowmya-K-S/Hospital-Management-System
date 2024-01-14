@@ -35,6 +35,10 @@ urlpatterns = [
     path('logout/', logout, name = "logout"),
     path('get_doctors/', get_doctors, name='get_doctors'),
 
+    path('payment/paymenthandler/', paymenthandler, name = "paymenthandler"),
+  
+    
+
     
     # urls for doctor app
     path('doctor/',doctor,name="doctor"),
