@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+</head>
+<body>
+
+    <center>
+    <div style="margin-top:300px">
+    <h3>Doctor is available, you can get an appointment</h3>
+   
+    <a >
+    <button id="pay-btn" class="btn btn-style btn-primary mt-4">Pay and Book</button>
+    </a>
+    </center>
+    
+  </div>
+
+    
+<!-- for razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const options = {
+       
+      // Enter the Key ID generated from the Dashboard
+      key: "{{ razorpay_merchant_key }}", 
+       
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence, 
+      // 50000 refers to 50000 paise
+      amount: "{{ razorpay_amount }}", 
+      currency: "{{ currency }}",
+       
+      // Your/store name.
+      name: "Medick Appointment", 
+       
+      // Pass the `id` obtained in the response of Step 1
+      order_id: "{{ razorpay_order_id }}", 
+      callback_url: "{{ callback_url }}",
+    };
+     
+    // initialise razorpay with the options.
+    var rzp1 = new Razorpay(options);
+     
+    // add event listener to the payment button.
+    document.getElementById("pay-btn").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  </script>
+
+  
+</body>
+</html>
+

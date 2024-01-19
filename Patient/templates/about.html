@@ -13,6 +13,7 @@
     rel="stylesheet">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{% static 'css/style-starter.css' %}">
+  <script src="https://kit.fontawesome.com/87f7aa2b39.js" crossorigin="anonymous"></script>
 
   <style>
 
@@ -129,38 +130,6 @@
   <!-- //home page block grids -->
 
 
-  <!-- /w3l-content-5-->
-  <section class="w3l-content-5 py-5">
-    <div class="content-4-main py-lg-5 py-md-4">
-      <div class="container pb-5">
-        <div class="title-content text-left">
-          <h6 class="title-subhny">Here & Now, Every Day</h6>
-          <h3 class="title-w3l two mb-sm-5 mb-4">Healing Experiences- For Everyone <br> All The Time</h3>
-        </div>
-        <div class="content-info-in row">
-          <div class="content-left col-lg-6">
-            <p class=""> We focus on the needs of every small to middle market businesses to improve and grow
-              their return. lacinia id erat eu
-              ullam corper. Nunc id ipsum fringilla, gravida felis vitae. lacinia id, sunt in
-              culpa quis lacinia. Lorem ipsum dolor, sit amet init elit. Eos,
-              debitis doler et in.lacinia id, sunt in culpa quis. </p>
-            <a href="#discover" class="btn btn-style btn-primary mt-md-5 mt-4">Get in touch</a>
-          </div>
-          <div class="content-right col-lg-6 mt-lg-0 mt-5">
-            <p> We focus on the needs of every small to middle market businesses to improve and grow
-              their return. lacinia id erat eu
-              ullam corper. Nunc id ipsum fringilla, gravida felis vitae. lacinia id, sunt in
-              culpa quis lacinia. Lorem ipsum dolor, sit amet init elit. Eos,
-              debitis. gravida felis vitae. lacinia id, sunt in
-              culpa quis. Lorem ipsum dolor sit amet</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /w3l-content-5-->
-
-
   <!--/team-sec-->
   <section class="w3l-team">
     <div class="team py-5">
@@ -169,81 +138,33 @@
           <h6 class="title-subhny text-center">Leading Team</h6>
           <h3 class="title-w3l mb-sm-3 text-center">Meet Our Team</h3>
         </div>
+
+        
         <div class="row team-row">
-          <div class="col-lg-3 col-6 team-wrap mt-4 pt-lg-2">
-            <div class="team-info">
+          {% for i in doctor_list %}
+          <div class="col-lg-3 col-6 team-wrap mt-4 pt-lg-2" style="max-width: 200px; max-height: 400px;">
+           <div class="team-info" >
               <div class="column position-relative img-circle">
-                <a href="#url"><img src="{% static 'images/team1.jpg' %}" alt="" class="img-fluid" /></a>
+                <a href="#url"><img src="{{i.profile_pic.url}}" alt="" class="img-fluid" /></a>
               </div>
               <div class="column-btm">
-                <h3 class="name-pos"><a href="#url">Jennifer Foster
+                <h3 class="name-pos"><a href="#url">{{i.full_name}}
                 </a></h3>
-                <p>Associate Dentist</p>
-                <div class="social">
-                  <a href="#facebook" class="facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                  <a href="#twitter" class="twitter"><span class="fa fa-twitter" aria-hidden="true"></span></a>
-                </div>
+                <p>{{i.special}}</p>
               </div>
             </div>
           </div>
-          <!-- end team member -->
-
-
-          <div class="col-lg-3 col-6 team-wrap mt-4 pt-lg-2">
-            <div class="team-info">
-              <div class="column position-relative img-circle">
-                <a href="#url"><img src="{% static 'images/team2.jpg' %}" alt="" class="img-fluid" /></a>
-              </div>
-              <div class="column-btm">
-                <h3 class="name-pos"><a href="#url">Dhony Abraham</a></h3>
-                <p>Orthodontist</p>
-                <div class="social">
-                  <a href="#facebook" class="facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                  <a href="#twitter" class="twitter"><span class="fa fa-twitter" aria-hidden="true"></span></a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- end team member -->
-
-          <div class="col-lg-3 col-6 team-wrap mt-4 pt-lg-2">
-
-            <div class="team-info">
-              <div class="column position-relative img-circle">
-                <a href="#url"><img src="{% static 'images/team3.jpg' %}" alt="" class="img-fluid" /></a>
-              </div>
-              <div class="column-btm">
-                <h3 class="name-pos"><a href="#url">Marko Dugonji</a></h3>
-                <p>Health Therapist</p>
-                <div class="social">
-                  <a href="#facebook" class="facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                  <a href="#twitter" class="twitter"><span class="fa fa-twitter" aria-hidden="true"></span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6 team-wrap mt-4 pt-lg-2">
-            <div class="team-info">
-              <div class="column position-relative img-circle">
-                <a href="#url"><img src="{% static 'images/team4.jpg' %}" alt="" class="img-fluid" /></a>
-              </div>
-              <div class="column-btm">
-                <h3 class="name-pos"><a href="#url">Rhoda Byrd</a></h3>
-                <p>Implantologist</p>
-                <div class="social">
-                  <a href="#facebook" class="facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
-                  <a href="#twitter" class="twitter"><span class="fa fa-twitter" aria-hidden="true"></span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end team member -->
+          {% endfor%}
         </div>
+       <br>
+       
+       <div style="display: flex; align-items: center; justify-content: center;"><button href="#" style=" background-color: #339ECA; width:150px; height:50px; color:white; border-radius:20px; border:none; font-size: 20px;">See More</button></div>
+       
       </div>
     </div>
   </section>
   <!--//team-sec-->
+
   
   {% include 'footer.html' %}
   

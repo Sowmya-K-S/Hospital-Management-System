@@ -19,3 +19,10 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.full_name
+class Appoint(models.Model):
+    a_date = models.DateField()
+    specialisation = models.CharField(max_length = 255)
+    doctor_name = models.CharField(max_length = 255)
+
+    def __str__(self):
+        return str(self.a_date)

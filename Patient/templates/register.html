@@ -68,7 +68,9 @@
 
                     {% csrf_token %}
                     
-                    {{msg}} <a href="{% url 'login' %}">Already have an account? Login</a>
+                    {{msg}} 
+                    <br>
+                    <a href="{% url 'login' %}">Already have an account? Login</a>
 
                     <br><br>
 

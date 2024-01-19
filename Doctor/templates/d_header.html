@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Seller Dashboard</title>
+  <title>Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -43,10 +43,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{% url 'doctor'%}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="{% url 'doctor_contact'%}" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -77,7 +77,7 @@
       <!-- Messages Dropdown Menu -->
      
       <li class="nav-item">
-        <a class="nav-link" role="button" href="{% url 'seller_logout' %}">
+        <a class="nav-link" role="button" href="{% url 'doctor_logout' %}">
           <i class="fa fa-sign-out" aria-hidden="true">Logout</i>
         </a>
       </li>
@@ -93,11 +93,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{user_data.profile_pic.url}}"  class="img-circle elevation-2" alt="User Image">
+        <div >
+          <img src="{{doctor_data.profile_pic.url}}"  alt="User Image" style="border-radius:50%">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ user_data.seller_name }}</a>
+          <a href="#" class="d-block">{{ doctor_data.full_name}}</a>
         </div>
       </div>
 
@@ -109,25 +109,16 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{% url 'seller_index' %}" class="nav-link active">
+            <a href="{% url 'view_appoint' %}" class="nav-link active">
               <i class="fa fa-eye"></i>
               <p>
-                View Appointment
+                View Appointments
                 
               </p>
             </a>
             
           </li>
-          <li class="nav-item">
-            <a href="{% url 'add_product' %}" class="nav-link active">
-              <i class="fa fa-heartbeat"></i>
-              <p>
-                specialist(Department)
-
-              </p>
-            </a>
-            
-          </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="fa fa-history"></i>
@@ -143,17 +134,6 @@
               <i class="fas fa-edit"></i>
               <p>
                 Edit Profile
-                
-              </p>
-            </a>
-            
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'inventory' %}" class="nav-link active">
-              
-              <i class="fa fa-cog"></i>
-              <p>
-                Inventory
                 
               </p>
             </a>

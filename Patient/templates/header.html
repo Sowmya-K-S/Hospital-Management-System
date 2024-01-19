@@ -46,7 +46,7 @@
                 <div>
                 <li class="nav-item">
                   
-                  <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"> &nbsp;</i>Logout</a>
+                  <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-power-off"></i> &nbsp;</i>Logout</a>
                 </li>
 
                 
@@ -60,11 +60,11 @@
 
             {% else %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                  <a class="nav-link" href="{% url 'register' %}"> <i class="fa-solid fa-user-plus"></i>  &nbsp; Register</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Login</a>
                 </li>
                 <li class="nav-item">
                   <button style = 'background-color:#339ECA; border: none; border-radius: 30px;width:150px; text-align: center;padding-top: 0px;'><a class="nav-link" href="{% url 'doctor' %}">I am a doctor</a></button>
