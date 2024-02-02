@@ -14,9 +14,6 @@ from django.core.mail import send_mail
 from Doctor.models import Doctor_table,DepartmentTable
 from Patient.models import Appoint
 
-
-
-
 # Create your views here.
 
 def doctor_about(request):

@@ -21,7 +21,7 @@ from Patient.views import *
 from Doctor.views import *
 
 urlpatterns = [
-
+    
     # urls for patient app
     path('admin/', admin.site.urls),
     path('', home, name="home"),
@@ -35,11 +35,9 @@ urlpatterns = [
     path('logout/', logout, name = "logout"),
     path('get_doctors/', get_doctors, name='get_doctors'),
 
-    path('payment/paymenthandler/', paymenthandler, name = "paymenthandler"),
+    #add url for paymenthandler function
+    path('paymenthandler/', paymenthandler, name='paymenthandler'),
   
-    
-
-    
     # urls for doctor app
     path('doctor/',doctor,name="doctor"),
     path('doctor_about/',doctor_about, name = "doctor_about"),
@@ -51,8 +49,6 @@ urlpatterns = [
     path('dashboard/',dashboard, name = "dashboard"),
     path('doctor_logout/', doctor_logout, name = "doctor_logout"),
     path('view_appoint/',view_appoint,name = "view_appoint"),
-  
-
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

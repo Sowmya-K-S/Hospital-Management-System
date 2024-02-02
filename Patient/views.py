@@ -173,27 +173,21 @@ def appoint(request):
                     global Appoint_object
                     Appoint_object ={'a_date':request.POST['a_date'], 'special':request.POST['special'], 'doctor_name':request.POST['doctor_name'] } 
 
-                    context={'appoint_data':Appoint_object}
-
-                    global amount
-                    currency = 'INR'
+                    #add razorpay integration code here
                     amount = 50000
+                    context = {
+                                'amount': amount,
+                                'razorpay_key_id': settings.RAZOR_KEY_ID, 
+                                'name': 'Medick',
+                                'description': 'Appointment Payment',
+                            }
+                    try:
+                        razorpay_order = razorpay_client.order.create(dict(amount=amount, currency='INR'))
+                        context['razorpay_order_id'] = razorpay_order['id']
+                    except:
+                        return render(request, 'appoint.html', {'msg': 'Razorpay order failed. Try again later.','special_data':special_data})  
 
-                     # Create a Razorpay Order
-                    razorpay_order = razorpay_client.order.create(dict(amount=amount, currency=currency,payment_capture = '0'))  
-
-                    # order_id of new order
-                    razorpay_order_id = razorpay_order['id']
-                    callback_url = 'paymenthandler/'  
-
-                    # passing the created stuffs to front end
-                    context['razorpay_order_id'] = razorpay_order_id
-                    context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
-                    context['razorpay_amount'] = amount
-                    context['currency'] = currency
-                    context['callback_url'] = callback_url               
-
-                    return render(request, 'payment.html',context=context)
+                    return render(request, 'payment.html',context)
                 
                 else:
                     return render(request, 'appoint.html',{'msg':'Enter a valid date', 'special_data':special_data})
@@ -202,106 +196,35 @@ def appoint(request):
         return render(request, 'appoint.html', {'special_data': special_data})
 
                   
-# @csrf_exempt
-# def paymenthandler(request):
- 
-#     # only accept POST request.
-#     if request.method == "POST":
-#         try:
-           
-#             # get the required parameters from post request.
-#             payment_id = request.POST.get('razorpay_payment_id', '')
-#             razorpay_order_id = request.POST.get('razorpay_order_id', '')
-#             signature = request.POST.get('razorpay_signature', '')
-#             params_dict = {
-#                 'razorpay_order_id': razorpay_order_id,
-#                 'razorpay_payment_id': payment_id,
-#                 'razorpay_signature': signature
-#             }
- 
-#             # verify the payment signature.
-#             result = razorpay_client.utility.verify_payment_signature(
-#                 params_dict)
-#             if result is not None:
-#                 famount = amount 
-#                 try:
- 
-#                     # capture the payment
-#                     razorpay_client.payment.capture(payment_id, famount)
- 
-#                     # create a row in Appoint Table
-#                     Appoint.objects.create(a_date=Appoint_object['a_date'],specialisation = Appoint_object['special'], doctor_name = Appoint_object['doctor_name'])
-
-
-#                     # render success page on successful caputre of payment
-#                     return render(request, 'paymentsuccess.html')
-                
-#                 except:
-#                     # if there is an error while capturing payment.
-#                     return render(request, 'paymentfail.html')
-                
-#             else:
- 
-#                 # if signature verification fails.
-#                 return render(request, 'paymentfail.html')
-#         except:
- 
-#             # if we don't find the required parameters in POST data
-#             return HttpResponseBadRequest()
-#     else:
-
-#        # if other than POST request is made.
-#         return HttpResponseBadRequest()
-
-
-
-from django.http import HttpResponse, HttpResponseBadRequest
+# add a payment handler function here
 
 @csrf_exempt
 def paymenthandler(request):
-    if request.method == "POST":
-        try:
-            payment_id = request.POST.get('razorpay_payment_id', '')
-            razorpay_order_id = request.POST.get('razorpay_order_id', '')
-            signature = request.POST.get('razorpay_signature', '')
+  if request.method == 'POST':
+    try:
+     
+      # Get the required parameters from post request 
+      payment_id = request.POST.get('razorpay_payment_id', '')  
+      razorpay_order_id = request.POST.get('razorpay_order_id','')
+      signature = request.POST.get('razorpay_signature','')
+        
+      # Verify the payment signature
+      params_dict = {
+        'razorpay_order_id': razorpay_order_id,
+        'razorpay_payment_id': payment_id,
+        'razorpay_signature': signature
+      }
 
-            params_dict = {
-                'razorpay_order_id': razorpay_order_id,
-                'razorpay_payment_id': payment_id,
-                'razorpay_signature': signature
-            }
+      # Verify the payment signature
+      razorpay_client.utility.verify_payment_signature(params_dict)
+      
+      # Save appointment details in DB
+      Appoint.objects.create(a_date = Appoint_object['a_date'], specialisation = Appoint_object['special'], doctor_name = Appoint_object['doctor_name'])
 
-            result = razorpay_client.utility.verify_payment_signature(params_dict)
-
-            if result is not None:
-                famount = amount
-
-                try:
-                    # Capture the payment
-                    razorpay_client.payment.capture(payment_id, famount)
-
-                    # Create a row in Appoint Table
-                    Appoint.objects.create(a_date=Appoint_object['a_date'],
-                                           specialisation=Appoint_object['special'],
-                                           doctor_name=Appoint_object['doctor_name'])
-
-                    # Render success page on successful capture of payment
-                    return render(request, 'paymentsuccess.html')
-
-                except Exception as e:
-                    # If there is an error while capturing payment.
-                    print(f"Payment capture error: {e}")
-                    return render(request, 'paymentfail.html')
-
-            else:
-                # If signature verification fails.
-                return render(request, 'paymentfail.html')
-
-        except Exception as e:
-            # If we don't find the required parameters in POST data
-            print(f"Payment handler error: {e}")
-            return HttpResponseBadRequest("Bad Request")
-
-    else:
-        # If other than POST request is made.
-        return HttpResponseBadRequest("Bad Request")
+      return render(request, 'paymentsuccess.html')
+      
+    except:
+      return render(request, 'paymentfail.html')
+        
+  else:
+    return HttpResponseBadRequest()

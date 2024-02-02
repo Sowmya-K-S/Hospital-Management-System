@@ -11,49 +11,38 @@
 <body>
 
     <center>
-    <div style="margin-top:300px">
-    <h3>Doctor is available, you can get an appointment</h3>
-   
-    <a >
-    <button id="pay-btn" class="btn btn-style btn-primary mt-4">Pay and Book</button>
-    </a>
-    </center>
-    
-  </div>
+      <br> <br> <br>
+      <h1>Doctor is Available, Pay and book the Appointment</h1>
+      <br> <br> <br>
+        <!-- Write code for razorpay here -->
 
-    
-<!-- for razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
-    const options = {
-       
-      // Enter the Key ID generated from the Dashboard
-      key: "{{ razorpay_merchant_key }}", 
-       
-      // Amount is in currency subunits.
-      // Default currency is INR. Hence, 
-      // 50000 refers to 50000 paise
-      amount: "{{ razorpay_amount }}", 
-      currency: "{{ currency }}",
-       
-      // Your/store name.
-      name: "Medick Appointment", 
-       
-      // Pass the `id` obtained in the response of Step 1
-      order_id: "{{ razorpay_order_id }}", 
-      callback_url: "{{ callback_url }}",
-    };
-     
-    // initialise razorpay with the options.
-    var rzp1 = new Razorpay(options);
-     
-    // add event listener to the payment button.
-    document.getElementById("pay-btn").onclick = function (e) {
-      rzp1.open();
-      e.preventDefault();
-    };
-  </script>
+<form action="{% url 'paymenthandler' %}" method="POST" id="razorpay-form">
 
+  <script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+
+    data-key="{{ razorpay_key_id }}"
+    data-amount="{{ amount }}"
+    data-currency="INR"
+    data-order_id="{{ razorpay_order_id }}"
+    data-theme.color="#F37254"
+  ></script>
+
+  <input type="hidden" custom="Hidden Element" name="hidden">
+
+</form>
+
+<!-- <button id="pay-btn">Pay</button> -->
+</center>
+
+<script>
+document.getElementById('pay-btn').onclick = function(e){
+    var razorPayForm = document.getElementById('razorpay-form');
+    razorPayForm.submit();
+    e.preventDefault();
+}
+</script>
+  
   
 </body>
 </html>
