@@ -7,8 +7,11 @@ Impact and usefulness in real world:
 This website streamlines the appointment process for both doctors and patients. Doctors benefit from an organised view of their appointments, and patients can avoid the hassle of physically visiting the hospital for booking appointments. Additionally, patients can explore hospital details and facilities online before planning a visit.
 
 Team members:
-Sowmya K S
-Mahadevu M P
+- Sowmya K S
+- Mahadevu M P
+- Krupa S Gowda
+- Manish R
+- Deekshith H R
 
 Technologies and Tools used: 
 - Architecture: Object Relational Mapping
