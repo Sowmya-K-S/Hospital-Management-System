@@ -130,8 +130,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sowmya68380@gmail.com'
-EMAIL_HOST_PASSWORD = 'mkkkhxvuxzroiypc'
+EMAIL_HOST_USER = 'email'
+EMAIL_HOST_PASSWORD = 'password'
 
 # for loading media
 
@@ -141,5 +141,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 
 # for razor pay
 
-RAZOR_KEY_ID = 'rzp_test_3jexlue5S8raet'
-RAZOR_KEY_SECRET = 'FTir9D0kHxb4KzdMQuR6TQGm'
+RAZOR_KEY_ID = 'key-id'
+RAZOR_KEY_SECRET = 'key-secret'
